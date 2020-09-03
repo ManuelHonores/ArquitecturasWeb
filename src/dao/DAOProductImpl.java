@@ -2,7 +2,6 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -32,18 +31,6 @@ public class DAOProductImpl extends ConectionMySQL implements DAOInterfaces<Prod
 		}
 		this.close();
 	}
-
-	public void delete(Product t) throws Exception {
-		
-	}
-
-	public void modified(Product t) throws Exception {
-		
-	}
-
-	public List<Product> list() throws Exception {
-		return null;
-	}
 	
 	public void createTable() throws Exception {
 		try {
@@ -61,23 +48,23 @@ public class DAOProductImpl extends ConectionMySQL implements DAOInterfaces<Prod
 		this.close();
 	}
 	
-	//Metodo para calcular que producto es el que mas recaudó
+	//Metodo para calcular que producto es el que mas recaudó (Inciso 3)
 	
-	public Product maxRecaudacion() throws Exception {
+	public Product maxCollection() throws Exception {
 		try {
 			Product prod = new Product();
-			this.connect();; //Conecta a la base de datos MySQL
-			String select = "SELECT p.idProducto, sum(p.valor * fp.cantidad) AS Recaudacion " + 
-							"FROM producto p JOIN facturaProducto fp ON (p.idProducto = fp.idProducto) " + 
-							"GROUP BY fp.idProducto " +
-							"ORDER BY Recaudacion DESC LIMIT 1;";
+			this.connect(); //Conecta a la base de datos MySQL
+			String select = "SELECT p.idProducto, p.nombre, p.valor, sum(p.valor * fp.cantidad) AS Recaudacion "
+					+ "FROM producto p JOIN facturaProducto fp ON (p.idProducto = fp.idProducto) "
+					+ "GROUP BY fp.idProducto ORDER BY Recaudacion DESC LIMIT 1";
 			PreparedStatement ps = this.conection.prepareStatement(select);
 			ResultSet rs = ps.executeQuery();
+			rs.next();
 			prod.setIdProd(rs.getInt(1));
 			prod.setName(rs.getString(2));
 			prod.setPrice(rs.getFloat(3));
 			ps.close(); //Cierro conexion con la base
-			this.close();;
+			this.close();
 			return prod;
 		}
 		catch (Exception e) {

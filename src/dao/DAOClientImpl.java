@@ -1,6 +1,8 @@
 package dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.csv.CSVParser;
@@ -16,6 +18,7 @@ public class DAOClientImpl extends ConectionMySQL implements DAOInterfaces<Clien
 	protected CSVParser parse;
 	
 	public void add() throws Exception {
+		//Llama a la clase CSVReader, nos devuelve un parser y luego lo leemos y mandamos a la bases
 		
 		this.connect();
 		read = new CSVReader("./CSV/clientes.csv");
@@ -32,23 +35,8 @@ public class DAOClientImpl extends ConectionMySQL implements DAOInterfaces<Clien
 		}
 		this.close();
 		
-		//Llamar a CSVReader, nos devuelve un parser y luego lo leemos y mandamos a la base
-		
-		
 	}
 
-	public void delete(Client c) throws Exception {
-		
-	}
-
-	public void modified(Client c) throws Exception {
-		
-	}
-
-	public List<Client> list() throws Exception {
-		return null;
-	}
-	
 	public void createTable() throws Exception {
 		try {
 			this.connect();
@@ -65,13 +53,40 @@ public class DAOClientImpl extends ConectionMySQL implements DAOInterfaces<Clien
 		this.close();
 	}
 	
-	//Consulta punto 4
-	/* Select cl.idCliente, cl.nombre, cl.email, sum(p.valor * fp.cantidad) AS Facturacion 
-		from cliente cl JOIN factura f ON (cl.idCliente = f.idCliente) 
-		JOIN facturaProducto fp ON (f.idFactura = fp.idFactura) 
-		JOIN producto p ON (fp.idProducto = p.idProducto) 
-		GROUP BY idCliente 
-		ORDER BY Facturacion DESC;
-	*/
+	
+	//Punto 4
+	public List<Client> listByBilling() throws Exception {
+		
+		List<Client> list = new ArrayList<Client>();
+		
+		try {
+			this.connect();
+			String select = "Select cl.idCliente, cl.nombre, cl.email, sum(p.valor * fp.cantidad) AS Facturacion " + 
+							"from cliente cl JOIN factura f ON (cl.idCliente = f.idCliente) " + 
+							"JOIN facturaProducto fp ON (f.idFactura = fp.idFactura) " + 
+							"JOIN producto p ON (fp.idProducto = p.idProducto) " + 
+							"GROUP BY idCliente " + 
+							"ORDER BY Facturacion DESC";
+			PreparedStatement ps = this.conection.prepareStatement(select);
+			
+			list = new ArrayList<Client>();
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Client per = new Client();
+				per.setId(rs.getInt("idCliente"));
+				per.setName(rs.getString("nombre"));
+				per.setEmail(rs.getString("email"));
+				list.add(per);
+			}
+			rs.close();
+			ps.close();
+			this.close();
+			return list;
+		}
+		catch (Exception e) {
+			throw e;
+		} 
+		
+	}
 
 }

@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.PreparedStatement;
-import java.util.List;
 
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -32,17 +31,6 @@ public class DAOBillProductImpl extends ConectionMySQL implements DAOInterfaces<
 		this.close();
 	}
 
-	public void delete(BillProduct t) throws Exception {
-		
-	}
-
-	public void modified(BillProduct t) throws Exception {
-		
-	}
-
-	public List<BillProduct> list() throws Exception {
-		return null;
-	}
 	
 	public void createTable() throws Exception {
 		try {
