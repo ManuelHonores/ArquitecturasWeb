@@ -64,5 +64,14 @@ public class DAOClientImpl extends ConectionMySQL implements DAOInterfaces<Clien
 		this.conection.commit();
 		this.close();
 	}
+	
+	//Consulta punto 4
+	/* Select cl.idCliente, cl.nombre, cl.email, sum(p.valor * fp.cantidad) AS Facturacion 
+		from cliente cl JOIN factura f ON (cl.idCliente = f.idCliente) 
+		JOIN facturaProducto fp ON (f.idFactura = fp.idFactura) 
+		JOIN producto p ON (fp.idProducto = p.idProducto) 
+		GROUP BY idCliente 
+		ORDER BY Facturacion DESC;
+	*/
 
 }
