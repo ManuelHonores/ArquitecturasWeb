@@ -31,9 +31,13 @@ public class Main {
 			
 			System.out.println("El producto que mas recaudó fue: Id: " + prod.getIdProd() + " Nombre: " + prod.getName() + " Valor: " + prod.getPrice());
 			
+			System.out.println("");
+			System.out.println("Lista de los clientes ordenados de mayor a menor segun su facturacion");
+			System.out.println("");
+			
 			for(Client c: list) {
 				
-				System.out.println("El cliente al cual mas se le facturó es: Id: " + c.getId() + " Nombre: " + c.getName() + " Email: " + c.getEmail());
+				System.out.println("Id: " + c.getId() + " Nombre: " + c.getName() + " Email: " + c.getEmail());
 			}
 			
 			

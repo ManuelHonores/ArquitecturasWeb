@@ -30,6 +30,8 @@ public class MainCreationTables {
 			daop.add();
 			daob.add();
 			daobp.add();
+			
+			System.out.println("Se crearon las tablas y se agregaron los datos a las mismas");
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
