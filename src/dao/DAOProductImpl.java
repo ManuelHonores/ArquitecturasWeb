@@ -14,6 +14,12 @@ public class DAOProductImpl extends ConectionMySQL implements DAOInterfaces<Prod
 	
 	private CSVReader read;
 	protected CSVParser parse;
+	
+	/**
+	 * En primer lugar se genera una conexion a la base de datos.
+	 * Se realiza un llamado al método reader de la clase CSVReader, enviandole la ruta para que lea un archivo .csv.
+	 * Una vez obtenidos los datos, se agregan cada una de las lineas del archivo a la tabla producto.
+	 */
 
 	public void add() throws Exception {
 		this.connect();
@@ -32,6 +38,11 @@ public class DAOProductImpl extends ConectionMySQL implements DAOInterfaces<Prod
 		this.close();
 	}
 	
+	/**
+	 * Se genera una conexión con la base de datos.
+	 * Luego se ejecuta la sentencia de creación de la tabla producto.
+	 */
+	
 	public void createTable() throws Exception {
 		try {
 			this.connect();
@@ -48,7 +59,13 @@ public class DAOProductImpl extends ConectionMySQL implements DAOInterfaces<Prod
 		this.close();
 	}
 	
-	//Metodo para calcular que producto es el que mas recaudó (Inciso 3)
+	/**
+	 * Inciso 3
+	 * Se realiza una consulta para saber que producto fue el que mas recaudo (valor * cantidad)
+	 * Una vez obtenido el resultado, se genera una instacia de la clase producto donde se guardaran los datos y será retornado.
+	 * @return se devuelve el producto que mas recaudo.
+	 * @throws Exception
+	 */
 	
 	public Product maxCollection() throws Exception {
 		try {

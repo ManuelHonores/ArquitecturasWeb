@@ -15,7 +15,12 @@ public class ConectionMySQL {
 	private final String user = "root";
 	private final String password = "password";
 	
-	public void connect() throws Exception { //Metodo para conectarse a la base de datos
+	/**
+	 * Se establece la conexión con la base de datos.
+	 * @throws Exception
+	 */
+	
+	public void connect() throws Exception {
 		try {
 			conection = DriverManager.getConnection(uri, user, password);
 			conection.setAutoCommit(false);
@@ -25,7 +30,11 @@ public class ConectionMySQL {
 		}
 	}
 	
-	public void close() throws SQLException { //Metodo para cerrar la conexion con la base de datos
+	/**
+	 * Cierra la conexión con la base de datos.
+	 * @throws SQLException
+	 */
+	public void close() throws SQLException {
 		if(conection != null) {
 			if(!conection.isClosed()) {
 				conection.close();

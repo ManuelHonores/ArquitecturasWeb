@@ -6,6 +6,13 @@ import java.util.List;
 import dao.DAOClientImpl;
 import dao.DAOProductImpl;
 
+/**
+ * TP Entregable 1
+ * Clase main donde se muestran los resultados de las consignas del TP-Especial.
+ * @author Manuel Honores, Manuel Gosende, Leonardo Molleker
+ *
+ */
+
 public class Main {
 
 	public static void main(String[] args) {

@@ -17,9 +17,13 @@ public class DAOClientImpl extends ConectionMySQL implements DAOInterfaces<Clien
 	private CSVReader read;
 	protected CSVParser parse;
 	
+	/**
+	 * En primer lugar se genera una conexion a la base de datos.
+	 * Se realiza un llamado al método reader de la clase CSVReader, enviandole la ruta para que lea un archivo .csv.
+	 * Una vez obtenidos los datos, se agregan cada una de las lineas del archivo a la tabla cliente.
+	 */
+	
 	public void add() throws Exception {
-		//Llama a la clase CSVReader, nos devuelve un parser y luego lo leemos y mandamos a la bases
-		
 		this.connect();
 		read = new CSVReader("./CSV/clientes.csv");
 		parse = read.reader();
@@ -36,6 +40,11 @@ public class DAOClientImpl extends ConectionMySQL implements DAOInterfaces<Clien
 		this.close();
 		
 	}
+	
+	/**
+	 * Se genera una conexión con la base de datos.
+	 * Luego se ejecuta la sentencia de creación de la tabla cliente.
+	 */
 
 	public void createTable() throws Exception {
 		try {
@@ -54,7 +63,13 @@ public class DAOClientImpl extends ConectionMySQL implements DAOInterfaces<Clien
 	}
 	
 	
-	//Punto 4
+	/**
+	 * Inciso 4
+	 * Se crea una sentencia para consultar a que cliente se le facturo mas.
+	 * Una vez obtenido el resultado, se guardan los clientes en un lista que va a ser retornada.
+	 * @return una lista de clientes ordenada por a quien se le facturo mas
+	 * @throws Exception
+	 */
 	public List<Client> listByBilling() throws Exception {
 		
 		List<Client> list = new ArrayList<Client>();
